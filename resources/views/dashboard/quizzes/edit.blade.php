@@ -129,10 +129,10 @@
 
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <label for="timer">{{ transWord('وقت الامتحان') }}</label>
-                                                    <input type="time" id="timer" class="form-control" name="timer"
-                                                        value="{{ old('timer',$quiz->timer) }}" />
-                                                    @error('timer')
+                                                    <label for="time">{{ transWord('وقت الامتحان') }}</label>
+                                                    <input type="time" id="time" class="form-control" name="time"
+                                                        value="{{ old('time',$quiz->time) }}" />
+                                                    @error('time')
                                                         <span class="alert alert-danger">
                                                             <small class="errorTxt">{{ $message }}</small>
                                                         </span>

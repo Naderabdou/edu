@@ -58,7 +58,7 @@ $(document).ready(function () {
 
 
             },
-            timer: {
+            time: {
                 required: true,
                 time: true
             },

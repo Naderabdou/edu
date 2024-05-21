@@ -24,7 +24,7 @@ class QuizRequest extends FormRequest
         return [
             'name_en' => 'required|string|min:3|max:255',
             'name_ar' => 'required|string|min:3|max:255',
-            'timer' => 'required',
+            'time' => 'required',
             'total_score' => 'required|integer|min:0',
             'pass_score' => 'required|integer|min:0',
             'course_id' => 'required|exists:courses,id',

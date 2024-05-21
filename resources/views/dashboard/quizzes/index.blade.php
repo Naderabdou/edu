@@ -65,7 +65,7 @@
                                                 <td>{{ $quiz->name }}</td>
                                                 <td>{{ $quiz->course?->title }}</td>
                                                 <td>{{ $quiz->topic?->name }}</td>
-                                                <td>{{ $quiz->timer }}</td>
+                                                <td>{{ $quiz->time }}</td>
                                                 <td>{{ $quiz->total_score }}</td>
                                                 <td>{{ $quiz->pass_score }}</td>
                                                 <td>{{ $quiz->questions?->count() }}</td>
