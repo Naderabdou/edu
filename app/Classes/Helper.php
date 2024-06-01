@@ -1,20 +1,21 @@
 <?php
 
-use App\Jobs\SendMultiMail;
-use App\Mail\SendMailMarkting;
-// use Stevebauman\Location\Facades\Location;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\WeHelp;
-use App\Models\Notification;
-use App\Servicies\Notify;
 use Carbon\Carbon;
-use AmrShawky\LaravelCurrency\Facade\Currency;
-use App\Jobs\SendEmailGifts;
-use App\Jobs\sendMailSubscribe;
+use App\Mail\WeHelp;
+// use Stevebauman\Location\Facades\Location;
 use App\Mail\BondMail;
-use Illuminate\Http\Request;
 use Twilio\Rest\Client;
+use App\Servicies\Notify;
+use App\Mail\SendCodeMail;
+use App\Jobs\SendMultiMail;
+use App\Jobs\SendEmailGifts;
+use App\Models\Notification;
+use Illuminate\Http\Request;
+use App\Mail\SendMailMarkting;
+use App\Jobs\sendMailSubscribe;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
+use AmrShawky\LaravelCurrency\Facade\Currency;
 
 /*curr
 |--------------------------------------------------------------------------
@@ -116,3 +117,16 @@ function getCount(string $model , $role = null)
 
     return $count;
 }
+function SendCode($email, $code,$name)
+{
+
+    $data = [
+        'code'  => $code,
+        'name'  => $name
+    ];
+
+    Mail::to($email)->send(new SendCodeMail($data));
+
+    return true;
+} // end of send code
+

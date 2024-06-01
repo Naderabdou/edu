@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Lesson;
+use App\Models\Watched;
 use App\Models\Category;
 use App\Models\TopicCourse;
 use Illuminate\Database\Eloquent\Model;
@@ -75,7 +77,23 @@ class Course extends Model
     {
         return $this->hasMany(TopicCourse::class);
 
+    }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'subscriptions', 'course_id', 'user_id');
+    }
 
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function rate()
+    {
+        return $this->hasMany(Rate::class, 'course_id', 'id');
+    }
+    public function watched(){
+        return $this->hasMany(Watched::class,'course_id','id');
     }
 }

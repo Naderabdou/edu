@@ -3,11 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Rate;
+use App\Models\Course;
+use App\Models\FirebaseToken;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -80,6 +83,46 @@ class User extends Authenticatable
     {
         return $this->background_image ? asset('storage/' . $this->attributes['background_image']) : asset('dashboard/images/avatar.jpg');
     }
+
+    public function sendEmailVerificationCode()
+    {
+        $this->update([
+            'code' => $this->activationCode(),
+        ]);
+
+         sendMail($this->code, $this->email, $this->name);
+
+        return true;
+    }
+
+    private function activationCode()
+    {
+        return 1234;
+        return mt_rand(1111, 9999);
+    }
+
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class, 'instructor_id', 'id');
+    }
+
+    public function subscribedCourses()
+    {
+        return $this->belongsToMany(Course::class, 'subscriptions', 'user_id', 'course_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Rate::class, 'user_id', 'id');
+    }
+
+    public function cart()
+    {
+        return $this->belongsToMany(Course::class, 'carts', 'user_id', 'course_id');
+    }
+
+
+
 
 
 

@@ -183,6 +183,26 @@ return [
         'color'        => 'اللون',
 
         'title' => 'العنوان',
+        'first_name' => 'الاسم الاول',
+        'last_name' => 'الاسم الاخير',
+        'username' => 'اسم المستخدم',
+        'email' => 'البريد الالكتروني',
+        'phone' => 'رقم الهاتف',
+        'skills' => 'المهارات',
+        'bio' => 'السيرة الذاتية',
+        'public_name' => 'الاسم العام',
+        'password' => 'كلمة المرور',
+        'password_confirmation' => 'تأكيد كلمة المرور',
+        'current_password' => 'كلمة المرور الحالية',
+        'avatar' => 'الصورة الشخصية',
+        'background_image' => 'صورة الخلفية',
+        'old_password' => 'كلمة المرور القديمة',
+        'new_password' => 'كلمة المرور الجديدة',
+        'new_password_confirmation' => 'تأكيد كلمة المرور الجديدة',
+        'password_confirmation' => 'تأكيد كلمة المرور',
+        'password' => 'كلمة المرور',
+        'username_or_email' => 'اسم المستخدم او البريد الالكتروني',
+        
 
     ],
 
