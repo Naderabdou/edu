@@ -8,7 +8,7 @@ $(document).ready(function () {
     }, window.filesize);
 
 
-    $("#createCategoryForm").validate({
+    $("#createPaymentsForm").validate({
         // initialize the plugin
 
         rules: {
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 minlength: 3,
                 noSpecialChars: true,
                 remote: {
-                    url: $('#check_name_category').val(),
+                    url:  window.payment,
                     type: "post",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -42,7 +42,7 @@ $(document).ready(function () {
                 minlength: 3,
                 noSpecialChars: true,
                 remote: {
-                    url: $('#check_name_category').val(),
+                    url:  window.payment,
                     type: "post",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -63,7 +63,7 @@ $(document).ready(function () {
                 }
             },
             image : {
-                required: true,
+
                 accept: "image/png, image/jpeg, image/svg+xml",
                 filesize: 1048576
             }
@@ -83,7 +83,7 @@ $(document).ready(function () {
         },
     });
 
-    $("#updateCategoryForm").validate({
+    $("#UpdatePaymentsForm").validate({
         // initialize the plugin
 
         rules: {
@@ -92,7 +92,7 @@ $(document).ready(function () {
                 minlength: 3,
                 noSpecialChars: true,
                 remote: {
-                    url: $('#check_name_category').val(),
+                    url:  window.payment,
                     type: "post",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -122,7 +122,7 @@ $(document).ready(function () {
                 minlength: 3,
                 noSpecialChars: true,
                 remote: {
-                    url: $('#check_name_category').val(),
+                    url:  window.payment,
                     type: "post",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -35,7 +35,21 @@ class CeckController extends Controller
 
 
 
+    public function CodeCoupons(Request $request)
+    {
 
+        return $this->checkRecordExists('Coupon', 'code', $request->code, $request, 'كود الكوبون مستخدم بالفعل');
+    }
+    public function paymentName(Request $request)
+    {
+        if ($request->name_ar) {
+            return $this->checkRecordExists('Payment', 'name_ar', $request->name_ar, $request, 'اسم الدفع بالعربي مستخدم بالفعل');
+        }
+
+        if ($request->name_en) {
+            return $this->checkRecordExists('Payment', 'name_en', $request->name_en, $request, 'اسم الدفع بالانجليزي مستخدم بالفعل');
+        }
+    }
 
 
 

@@ -112,9 +112,25 @@ Route::middleware('localization')->group(function () {
             Route::resource('certificates', 'CertificateController')->only('index');
             //  =========================== End Certificates  =========================== //
 
-            //  =========================== Subscriptions  =========================== //
-           Route::resource('subscriptions', 'SubscriptionController');
-            //  =========================== End Subscriptions  =========================== //
+
+            //------------------- coupons Routes -------------------//
+            Route::resource('coupons', 'CouponController');
+            Route::get('coupon/change/status', 'CouponController@changeStatus')->name('coupon.status');
+            //------------------- End  coupons Routes -------------------//
+
+
+            //------------------- payments Routes -------------------//
+            Route::resource('payments', 'PaymentController');
+            Route::get('payment/change/status', 'PaymentController@changeStatus')->name('payment.status');
+
+            //------------------- End  payments Routes -------------------//
+
+            //------------------- Orders Routes -------------------//
+            Route::resource('orders', 'OrderController')->except(['create', 'store', 'edit', 'update']);
+            Route::get('orders/change-status/{id}/{status}', 'OrderController@changeStatus')->name('orders.change-status');
+            //------------------- End  Orders Routes -------------------//
+
+
 
             //  =========================== Quizzes and Questions =========================== //
             Route::resource('quizzes', 'QuizController');
@@ -136,11 +152,13 @@ Route::middleware('localization')->group(function () {
             Route::post('check-phone', 'CeckController@checkPhone')->name('check.phone');
             Route::post('check-name', 'CeckController@checkName')->name('check.name');
             Route::post('check-slug', 'CeckController@checkSlug')->name('check.slug');
+            Route::post('check-codeCoupons', 'CeckController@CodeCoupons')->name('check.codeCoupons');
+            Route::post('check-paymentName', 'CeckController@paymentName')->name('check.paymentName');
 
             //  =========================== End Check  =========================== //
 
             //Route::post('uploadVideo' ,'uploadController@uploadLargeFiles')->name('files.upload.large');
-           // =========================== Uploads using FilePond  =========================== //
+            // =========================== Uploads using FilePond  =========================== //
             Route::post('tmp-uploads/{folder?}', 'uploadController@tmpUploads')->name('tmp.uploads');
             Route::delete('tmp-delete/{folder?}', 'uploadController@tmpUploadsDelete')->name('tmp.delete');
             Route::delete('tmp-refrsh/refrsh', 'uploadController@tmpUploadsrefrsh')->name('tmp.refrsh');

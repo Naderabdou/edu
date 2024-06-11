@@ -8,11 +8,12 @@ use App\Models\Watched;
 use App\Models\Category;
 use App\Models\TopicCourse;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Course extends Model
 {
-    use HasFactory;
+    use HasFactory ;
      protected $guarded = [];
 
      protected $casts = [
@@ -79,10 +80,7 @@ class Course extends Model
 
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'subscriptions', 'course_id', 'user_id');
-    }
+
 
     public function lessons()
     {
@@ -96,4 +94,12 @@ class Course extends Model
     public function watched(){
         return $this->hasMany(Watched::class,'course_id','id');
     }
+    // public function sluggable(): array
+    // {
+    //     return [
+    //         'slug' => [
+    //             'source' => 'name_en'
+    //         ]
+    //     ];
+    // }
 }

@@ -21,7 +21,6 @@ class CourseRequest extends FormRequest
      */
     public function rules(): array
     {
-      
         return [
             //'slug_ar' => 'nullable|string|unique:courses,slug_ar',
             'slug_en' => request()->method() == 'POST' ? 'required|string|unique:courses,slug_en' : 'required|string|unique:courses,slug_en,' . $this->route('course'),

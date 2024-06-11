@@ -63,6 +63,8 @@ return new class extends Migration
 
             $table->string('tags')->nullable();
             $table->string('target_audience')->nullable();
+            $table->enum('status', ['pending', 'publish', 'draft'])->default('pending')->nullable();
+
 
           // $table->string('certificate_template')->nullable();
 

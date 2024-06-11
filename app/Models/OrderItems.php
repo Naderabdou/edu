@@ -2,29 +2,22 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Subscriptions extends Model
+class OrderItems extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
 
-
-    public function user()
+    public function order()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Order::class);
     }
 
-
-    public function course()
+    public function courses()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class, 'course_id', 'id');
     }
-
-
-
 }

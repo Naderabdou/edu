@@ -70,11 +70,32 @@
                     <i class="fas fa-certificate"></i><span
                         class="menu-title text-truncate">{{ transWord('الشهادات') }}</span></a>
             </li>
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="{{ route('admin.subscriptions.index') }}">
-                    <i class="fas fa-rss"></i><span
-                        class="menu-title text-truncate">{{ transWord('الاشتراكات') }}</span></a>
+            <li class="nav-item {{ areActiveRoutes(['admin.coupons.index', 'admin.coupons.edit']) }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.coupons.index') }}">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span class="menu-title text-truncate">{{ transWord('اكواد الخصم') }}</span>
+                </a>
             </li>
+
+            <li class="nav-item {{ areActiveRoutes(['admin.payments.index', 'admin.payments.edit']) }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.payments.index') }}">
+                    <i class="fas fa-credit-card"></i>
+                    <span class="menu-title text-truncate">{{ transWord('وسائل الدفع') }}</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item {{ areActiveRoutes(['admin.orders.index', 'admin.orders.edit']) }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.orders.index') }}">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="menu-title text-truncate">{{ transWord('الطلبات') }}</span>
+                </a>
+            </li>
+
+
+
+
+
 
 
             <li class="nav-item {{ areActiveRoutes(['admin.contacts.index', 'admin.contacts.edit']) }}">

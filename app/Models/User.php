@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Rate;
+use App\Models\Order;
 use App\Models\Course;
 use App\Models\FirebaseToken;
 use Laravel\Sanctum\HasApiTokens;
@@ -106,24 +107,36 @@ class User extends Authenticatable
         return $this->hasMany(Course::class, 'instructor_id', 'id');
     }
 
-    public function subscribedCourses()
-    {
-        return $this->belongsToMany(Course::class, 'subscriptions', 'user_id', 'course_id');
-    }
+
 
     public function reviews()
     {
         return $this->hasMany(Rate::class, 'user_id', 'id');
     }
 
-    public function cart()
+
+
+    public function favorite()
     {
-        return $this->belongsToMany(Course::class, 'carts', 'user_id', 'course_id');
+        return $this->belongsToMany(Course::class, 'favorites', 'user_id', 'course_id');
     }
 
+    // public function orders()
+    // {
+    //     return $this->hasMany(Order::class, 'user_id', 'id');
+    // }
 
 
 
+    public function cart()
+    {
+        return $this->hasOne(Order::class ,'user_id')->where('type', 'cart');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class)->where('type', 'order');
+    }
 
 
 

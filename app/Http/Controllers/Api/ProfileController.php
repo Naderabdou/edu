@@ -3,26 +3,61 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Course;
+use App\Models\OrderItems;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Api\ReviewRequest;
 use App\Http\Requests\Api\WishListRequest;
 use App\Http\Resources\Api\ProfileResource;
+use App\Http\Resources\Api\ReviewsResource;
+use App\Http\Resources\Api\MyOrdersResource;
 use App\Http\Resources\Api\wishlistResource;
+use App\Http\Requests\Api\ReviewRemoveRequest;
+use App\Http\Resources\Api\OrderItemsResource;
 use App\Http\Requests\Api\ProfileUpdateRequest;
 use App\Http\Resources\Api\EnrollerdCoursesResource;
 use App\Http\Controllers\Api\Traits\ApiResponseTrait;
 use App\Http\Requests\Api\ProfileUpdateSocialRequest;
 use App\Http\Requests\Api\ProfileUpdatePasswordRequest;
-use App\Http\Requests\Api\ReviewRemoveRequest;
-use App\Http\Requests\Api\ReviewRequest;
-use App\Http\Resources\Api\ReviewsResource;
 
 class ProfileController extends Controller
 {
     use ApiResponseTrait;
+
+
+    // this function is used to get count enrolled courses and active courses and completed courses
+    public function dashboard()
+    {
+        $user = auth()->user();
+
+        $courses = $user->orders()
+            
+            ->where('status', 'payment')
+            ->with(['orderItems.courses' => function ($query) {
+                $query->withCount(['lessons', 'watched', 'rate']);
+            }])
+            ->get()
+            ->pluck('orderItems.*.courses')
+            ->collapse();
+
+        $maxLessonsCount = $courses->max('lessons_count');
+
+        $activeCourses = $courses->filter(fn ($course) => $course->watched_count > 0 && $course->watched_count < $maxLessonsCount)->count();
+
+        $completedCourses = $courses->where('watched_count', $maxLessonsCount)->count();
+
+        $enrolledCourses = $courses->where('watched_count', 0)->count();
+
+        return $this->ApiResponse([
+            'active_courses' => $activeCourses,
+            'completed_courses' => $completedCourses,
+            'enrolled_courses' => $enrolledCourses,
+        ]);
+    }
+    //end function dashboard
 
     // this function is used to get the user profile
     public function index()
@@ -91,7 +126,17 @@ class ProfileController extends Controller
     public function EnrolledCourses($type)
     {
 
-        $courses = auth()->user()->subscribedCourses()->withCount('watched', 'lessons', 'users', 'rate')->get();
+        $user = auth()->user();
+
+        $courses = $user->orders()
+            ->where('status', 'payment')
+            ->with(['orderItems.courses' => function ($query) {
+                $query->withCount(['lessons', 'watched', 'rate']);
+            }])
+            ->get()
+            ->pluck('orderItems.*.courses')
+            ->collapse();
+
 
 
         switch ($type) {
@@ -104,7 +149,11 @@ class ProfileController extends Controller
                 $certificate = 'inactive';
                 break;
             case 'completed':
-                $filteredCourses = $courses->where('watched_count', '=', $courses->pluck('lessons_count')->max());
+                if ($courses->pluck('lessons_count')->max() == 0) {
+                    $filteredCourses = collect([]);
+                } else {
+                    $filteredCourses = $courses->where('watched_count', $courses->pluck('lessons_count')->max());
+                }
                 $progress = '100%';
                 $certificate = 'active';
                 break;
@@ -117,6 +166,7 @@ class ProfileController extends Controller
             default:
                 return $this->ApiResponse(null, transWord('هذا النوع غير موجود'), 404);
         }
+
         $filteredCourses = $filteredCourses->map(function ($course) use ($progress, $certificate) {
             $course['rate'] = $course->rate()->avg('rate');
             $course['progress'] = $progress;
@@ -133,7 +183,7 @@ class ProfileController extends Controller
     // this function is used to get the wishlist
     public function wishlist()
     {
-        $wishlist = auth()->user()->cart()->withCount('lessons', 'users', 'rate')->get();
+        $wishlist = auth()->user()->favorite()->withCount('lessons', 'users', 'rate')->get();
         $wishlist = $wishlist->map(function ($course) {
             $course['rate'] = $course->rate()->avg('rate');
             return $course;
@@ -153,12 +203,12 @@ class ProfileController extends Controller
         if (!Course::find($id)) {
             return $this->ApiResponse(null, transWord('هذه الدورة غير موجودة'), 404);
         }
-        $course = auth()->user()->cart()->where('course_id', $id)->first();
+        $course = auth()->user()->favorite()->where('course_id', $id)->first();
         if ($course) {
             return $this->ApiResponse(null, transWord('هذه الدورة موجودة بالفعل في قائمة المفضلة'), 400);
         }
 
-        auth()->user()->cart()->syncWithoutDetaching($id);
+        auth()->user()->favorite()->syncWithoutDetaching($id);
         return $this->ApiResponse(null, transWord('تمت الاضافة بنجاح'));
     }
     //end function addWishlist
@@ -167,19 +217,19 @@ class ProfileController extends Controller
     // this function is used to remove course from wishlist and id is course id
     public function removeWishlist($id)
     {
-        $course = auth()->user()->cart()->where('course_id', $id)->first();
+        $course = auth()->user()->favorite()->where('course_id', $id)->first();
 
         if (!$course) {
             return $this->ApiResponse(null, transWord('هذه الدورة غير موجودة في قائمة المفضلة'), 404);
         }
 
-        auth()->user()->cart()->detach($id);
+        auth()->user()->favorite()->detach($id);
         return $this->ApiResponse(null, transWord('تم الحذف بنجاح'));
     }
     //end function removeWishlist
 
 
-   // this function is used to get the reviews
+    // this function is used to get the reviews
     public function reviews()
     {
         $reviews = auth()->user()->reviews()->with('course')->get();
@@ -230,4 +280,12 @@ class ProfileController extends Controller
         return $this->ApiResponse(null, transWord('تم التعديل بنجاح'));
     }
     //end function updateReview
+
+    public function orders()
+    {
+
+        $orders = auth()->user()->orders()->with(['orderItems.courses'])->get();
+
+        return $this->ApiResponse(MyOrdersResource::collection($orders));
+    }
 }
