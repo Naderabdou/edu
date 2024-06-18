@@ -34,7 +34,7 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $courses = $user->orders()
-            
+
             ->where('status', 'payment')
             ->with(['orderItems.courses' => function ($query) {
                 $query->withCount(['lessons', 'watched', 'rate']);
@@ -127,7 +127,6 @@ class ProfileController extends Controller
     {
 
         $user = auth()->user();
-
         $courses = $user->orders()
             ->where('status', 'payment')
             ->with(['orderItems.courses' => function ($query) {

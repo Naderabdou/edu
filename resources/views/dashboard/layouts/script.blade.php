@@ -130,6 +130,7 @@ CKEDITOR.replace('requirements_en', {
             'videoMessage' => transWord('The video must be mp4'),
             'noSpecialChars' => transWord('The field must not contain special characters'),
             'pdf' => transWord('The file must be pdf'),
+            'price_after' => transWord('حقل السعر بعد الخصم مطلوب'),
 
         ];
     @endphp

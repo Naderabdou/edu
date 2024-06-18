@@ -23,16 +23,37 @@ Route::middleware('api_localization')->namespace('Api')->group(function () {
     Route::post('forget/password', 'AuthController@forgetPassword');
     //end auth
 
-    // // ----------------- Home -----------------//
-    // Route::get('home', 'HomeController@index');
-    // // ----------------- End Home -----------------//
+    // ----------------- Home -----------------//
+    Route::get('header', 'HomeController@header');
+    Route::get('categories', 'HomeController@categories');
+    Route::get('about_us', 'HomeController@aboutUs');
+    Route::get('review', 'HomeController@reviews');
+    Route::get('instructors', 'HomeController@instructors');
+    Route::get('instructors/show/{id}', 'HomeController@instructorsShow');
+    Route::get('blogs', 'HomeController@blogs');
+    Route::post('subscribe', 'HomeController@subscribe');
+    // ----------------- End Home -----------------//
+
+    // ----------------- about-us-02.html -----------------//
+
+    Route::get('aboutUs', 'AboutUsController@about');
+    Route::get('feature', 'AboutUsController@feature');
+    Route::get('instructor', 'AboutUsController@instructors');
+    Route::get('partners', 'AboutUsController@partners');
+
+    // ----------------- End about-us-02.html -----------------//
+
+    //------------------ faqs -----------------//
+    Route::get('faqs/question', 'FaqController@index');
+    Route::post('faqs/contact_us', 'FaqController@contact');
+    //------------------ End faqs -----------------//
 
     //------------------ Courses -----------------//
     Route::get('courses', 'CourseController@index');
     Route::get('courses/{id}', 'CourseController@show');
-    Route::get('courses/search/{title}', 'CourseController@search');
-    Route::get('courses/category/{id}', 'CourseController@category');
-    Route::get('courses/instructor/{id}', 'CourseController@instructor');
+    Route::get('courses/filter/list', 'CourseController@filterList');
+    Route::get('filter', 'CourseController@filter');
+
     Route::get('courses/related/{id}', 'CourseController@related');
     //------------------ End Courses -----------------//
 
@@ -80,17 +101,26 @@ Route::middleware('api_localization')->namespace('Api')->group(function () {
         //-----------------End Courses Instructor -----------------//
 
         //----------------- Topices Courses -----------------//
-        Route::get('courses/topics', 'TopicesController@inedx');
+        //Route::get('courses/topics', 'TopicesController@inedx');
         Route::post('courses/topics/store', 'TopicesController@store');
+        Route::get('courses/topics/edit/{id}', 'TopicesController@edit');
         Route::post('courses/topics/update/{id}', 'TopicesController@update');
 
         //----------------- lessons -----------------//
-        Route::get('lessons/{id}', 'LessonController@index');
+       // Route::get('lessons/{id}', 'LessonController@index');
         Route::get('lessons/show/{id}', 'LessonController@show');
         Route::post('lessons/store', 'LessonController@store');
-        Route::post('lessons/update/{id}', 'LessonController@update');
+        Route::put('lessons/update/{id}', 'LessonController@update');
         Route::post('lessons/delete/{id}', 'LessonController@destroy');
         //-----------------End lessons -----------------//
+
+        //----------------- Quiz -----------------//
+       // Route::get('quiz/{id}', 'QuizController@index');
+        Route::get('quiz/show/{id}', 'QuizController@show');
+        Route::post('quiz/store', 'QuizController@store');
+        Route::put('quiz/update/{id}', 'QuizController@update');
+        Route::post('quiz/delete/{id}', 'QuizController@destroy');
+        //-----------------End Quiz -----------------//
 
 
         //-----------------End Profile-----------------//

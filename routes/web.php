@@ -47,11 +47,26 @@ Route::middleware('localization')->group(function () {
             // =========================== End Dashboard  =========================== //
 
 
+            //  =========================== questionsRepate  =========================== //
+            Route::resource('questionsRepate', 'QuestionRepateController');
+            //  =========================== End questionsRepate  =========================== //
+
+
             //  =========================== Settings  =========================== //
             Route::resource('settings', 'SettingController')->only(['create', 'store']);
             //  =========================== End Settings  =========================== //
 
+            //  =========================== reviews  =========================== //
+            Route::resource('reviews', 'ReviewController');
+            //  =========================== End reviews  =========================== //
 
+              // ------------------- Features Routes -------------------//
+              Route::resource('features', 'FeatureController');
+              //------------------- End Features Routes -------------------//
+
+               //-------------------- Partner  Routes -------------------//
+            Route::resource('partners', 'PartnerController');
+            //-------------------- Partner Routes -------------------//
             //  =========================== Contact Us  =========================== //
             Route::get('contacts', 'ContactController@index')->name('contacts.index');
 
@@ -65,6 +80,7 @@ Route::middleware('localization')->group(function () {
 
             //  =========================== End Contact Us  =========================== //
 
+            Route::resource('subscribe', 'SubscribeController');
 
             //  =========================== Profile Admin  =========================== //
             Route::get('profile', 'ProfileController@getProfile')->name('profile');
@@ -112,6 +128,10 @@ Route::middleware('localization')->group(function () {
             Route::resource('certificates', 'CertificateController')->only('index');
             //  =========================== End Certificates  =========================== //
 
+            //  =========================== blogs =========================== //
+            Route::resource('blogs', 'BlogController');
+            //  =========================== End blogs  =========================== //
+
 
             //------------------- coupons Routes -------------------//
             Route::resource('coupons', 'CouponController');
@@ -154,6 +174,8 @@ Route::middleware('localization')->group(function () {
             Route::post('check-slug', 'CeckController@checkSlug')->name('check.slug');
             Route::post('check-codeCoupons', 'CeckController@CodeCoupons')->name('check.codeCoupons');
             Route::post('check-paymentName', 'CeckController@paymentName')->name('check.paymentName');
+            Route::post('check-features-name', 'CeckController@checkFeaturesName')->name('check.features.name');
+
 
             //  =========================== End Check  =========================== //
 

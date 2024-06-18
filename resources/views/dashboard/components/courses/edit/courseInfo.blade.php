@@ -380,7 +380,7 @@
             <div id="Paid" class="collapse show" aria-labelledby="Paid"
                 data-parent="#Paid">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <input type="hidden" id="is_paid"
                                 class="form-control" name="type_course"
@@ -402,7 +402,7 @@
                     </div>
 
 
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <label
                                 for="discount">{{ transWord('Discounted Price ($)') }}</label>
@@ -411,6 +411,24 @@
                                 value="{{ old('discount', $course->discount) }}"
                                 min="0" />
                             @error('discount')
+                                <span class="alert alert-danger">
+                                    <small
+                                        class="errorTxt">{{ $message }}</small>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label
+                                for="price_after_discount">{{ transWord('السعر بعد الخصم') }}</label>
+                            <input type="number" id="price_after_discount"
+                                class="form-control" name="price_after_discount"
+                                value="{{ old('price_after_discount', $course->price_after_discount) }}"
+                                min="0" />
+                            @error('price_after_discount')
                                 <span class="alert alert-danger">
                                     <small
                                         class="errorTxt">{{ $message }}</small>

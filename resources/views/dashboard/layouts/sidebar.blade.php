@@ -84,6 +84,19 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ areActiveRoutes(['admin.reviews.index', 'admin.reviews.edit']) }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.reviews.index') }}">
+                    <i class="fas fa-comments"></i>
+                    <span class="menu-title text-truncate">{{ transWord('اراء العملاء') }}</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ areActiveRoutes(['admin.blogs.index', 'admin.blogs.edit']) }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.blogs.index') }}">
+                    <i class="fas fa-blog"></i>
+                    <span class="menu-title text-truncate">{{ transWord('الاخبار') }}</span>
+                </a>
+            </li>
 
             <li class="nav-item {{ areActiveRoutes(['admin.orders.index', 'admin.orders.edit']) }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.orders.index') }}">
@@ -94,7 +107,19 @@
 
 
 
+            <li class="nav-item {{ areActiveRoutes(['admin.features.index', 'admin.features.edit']) }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.features.index') }}">
+                    <i class="fas fa-star"></i>
+                    <span class="menu-title text-truncate">{{ transWord('المميزات') }}</span>
+                </a>
+            </li>
 
+            <li class="nav-item {{ areActiveRoutes(['admin.partners.index', 'admin.partners.edit']) }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.partners.index') }}">
+                    <i class="fas fa-handshake"></i>
+                    <span class="menu-title text-truncate">{{ transWord('شركانا') }}</span>
+                </a>
+            </li>
 
 
 

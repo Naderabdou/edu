@@ -37,6 +37,23 @@ class TopicesController extends Controller
 
     }
 
+    public function edit($id)
+    {
+        $instractor = $this->getUserOrError();
+        if ($instractor instanceof JsonResponse) return $instractor;
+
+        $topice = TopicCourse::find($id);
+        if(!$topice){
+            return $this->ApiResponse(null, transWord('هذا الموضوع غير موجود'), 404);
+        }
+
+        if(!$instractor->courses()->find($topice->course_id)){
+            return $this->ApiResponse(null, transWord('هذه الدورة ليست ملك لك'), 401);
+        }
+
+        return $this->ApiResponse($topice);
+    }
+
     public function update(TopicesRequest $request, $id)
     {
         $instractor = $this->getUserOrError();

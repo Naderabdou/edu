@@ -22,10 +22,11 @@ class LessonsRequest extends MasterApiRequest
      */
     public function rules(): array
     {
+      
         return [
             'course_id' => 'required|exists:courses,id',
             'topic_id' => 'required|exists:topic_courses,id',
-            'video_lesson' => 'required',
+            'video_lesson' => $this->_method == 'PUT' ? 'nullable' : 'required',
             'pdf_lesson' => 'nullable',
             'title_ar' => 'required|min:3|max:255',
             'title_en' => 'required|min:3|max:255',

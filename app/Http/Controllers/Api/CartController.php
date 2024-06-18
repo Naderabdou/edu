@@ -30,28 +30,28 @@ class CartController extends Controller
         //     'price_after_discount' => $totalPriceAfterDiscount
         // ]);
 
-if ($cart->coupon_price) {
-            $totalPriceAfterDiscount = max(0, $totalPriceAfterDiscount - $cart->coupon_price);
-}
+        if ($cart->coupon_price) {
+            $cart->price_after_discount = max(0, $cart->price_after_discount - $cart->coupon_price);
+        }
 
         return $this->ApiResponse([
             'cart' => CartResource::collection($cart->orderItems),
-            'total_price' => $totalPrice,
-            'total_discount' => $totalDiscount,
-            'price_after_discount' => $totalPriceAfterDiscount,
+            'total_price' => $cart->total_price,
+            'total_discount' => $cart ->discount,
+            'price_after_discount' => $cart ->price_after_discount,
             'coupon_price' => $cart->coupon_price ?? 0,
             'coupon_code' => $cart->coupon_code ?? null,
 
         ], '', 200);
 
 
-       // return $this->ApiResponse(CartResource::collection($cart->orderItems));
+        // return $this->ApiResponse(CartResource::collection($cart->orderItems));
     }
 
     public function add($id)
     {
 
-         $course = Course::find($id);
+        $course = Course::find($id);
 
         if (!$course) {
             return $this->ApiResponse(null, transWord('هذه الدورة غير موجودة'), 404);
@@ -66,7 +66,7 @@ if ($cart->coupon_price) {
 
             ],
             [
-                'order_number' => 'ORD-' . uniqid() ,
+                'order_number' => 'ORD-' . uniqid(),
                 'status' => 'pocessing',
                 'first_name' => auth()->user()->first_name,
                 'last_name' => auth()->user()->last_name,
@@ -79,7 +79,7 @@ if ($cart->coupon_price) {
 
 
         if ($cart->orderItems()->where('course_id', $course->id)->exists()) {
-            return $this->ApiResponse(null, transWord('هذه الدورة موجودة بالفعل في سلة المشتريات'), 400);
+            return $this->ApiResponse(null, transWord('هذه الدورة موجودة بالفعل في سلة المشتريات'));
         }
 
 
@@ -88,8 +88,13 @@ if ($cart->coupon_price) {
             'price' => $course->price,
             'course_name' => $course->title,
             'discount' => $course->discount,
-            'price_after_discount' => $course->price - ($course->price * $course->discount / 100),
+            'price_after_discount' => $course->price_after_discount,
 
+
+        ]);
+        $totalPrice = $cart->price_before_discount + $course->totalPrice;
+        $cart->update([
+            'price_before_discount' => $totalPrice,
 
         ]);
         return $this->ApiResponse(null, transWord('تمت الاضافة بنجاح'));

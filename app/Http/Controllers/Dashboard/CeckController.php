@@ -24,7 +24,17 @@ class CeckController extends Controller
     {
         return $this->checkRecordExists('User', 'phone', $request->phone, $request, 'رقم الهاتف مستخدم بالفعل');
     }
+    public function checkFeaturesName(Request $request)
+    {
 
+        if ($request->title_ar) {
+            return $this->checkRecordExists('Feature', 'title_ar', $request->title_ar, $request, 'اسم الميزة بالعربي مستخدم بالفعل');
+        }
+
+        if ($request->title_en) {
+            return $this->checkRecordExists('Feature', 'title_en', $request->title_en, $request, 'اسم الميزة بالانجليزي مستخدم بالفعل');
+        }
+    }
 
     //checkSlug
     public function checkSlug(Request $request)

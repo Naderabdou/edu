@@ -33,6 +33,7 @@ return new class extends Migration
             $table->enum('type_course', ['free', 'paid'])->default('free')->nullable();
             $table->decimal('price', 10, 2)->default(0.00);
             $table->decimal('discount', 10, 2)->default(0.00);
+            $table->decimal('price_after_discount', 10, 2)->default(0.00);
 
           //  $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
 

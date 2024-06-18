@@ -14,6 +14,7 @@ class SettingTableSeeder extends Seeder
     public function run(): void
     {
         Setting::insert([
+            //key home page start//
             [
                 'key'      => 'logo',
                 'neckname' => 'الشعار',
@@ -33,8 +34,8 @@ class SettingTableSeeder extends Seeder
                 'value'    => 'setting/favicon.ico',
             ],
             [
-                'key'      => 'about_image',
-                'neckname' => 'صورة عن التطبيق',
+                'key'      => 'slider_image',
+                'neckname' => 'صورة الاسليدر في الرئيسية',
                 'type'     => 'file',
                 'value'    => 'setting/about.png',
             ],
@@ -77,19 +78,161 @@ class SettingTableSeeder extends Seeder
 
             [
                 'key'      => 'about_application_ar',
-                'neckname' => 'عن التطبيق بالعربيه',
+                'neckname' => 'من نحن بالعربيه',
                 'type'     => 'textarea',
                 'value'    => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
                 زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
             ],
             [
                 'key'      => 'about_application_en',
-                'neckname' => 'عن التطبيق بالانجليزيه',
+                'neckname' => 'من نحن بالانجليزيه',
                 'type'     => 'textarea',
                 'value'    => '“Zad” application: your spiritual companion on the journey of faith
                 Zad is a comprehensive religious application that offers you a wide range of dhikr and supplications, in addition to the Holy Quran, prayer times, and the Qibla. The application is distinguished by its attractive design and ease of use, making it your ideal companion on the journey of faith.'
             ],
+            [
+                'key'      => 'first_image_about',
+                'neckname' => 'الصوره الاوله في الرئسيه (من نحن)',
+                'type'     => 'file',
+                'value'    => 'setting/logo.png',
+            ],
+            [
+                'key'      => 'second_image_about',
+                'neckname' => 'الصوره الثانيه في الرئسيه (من نحن)',
+                'type'     => 'file',
+                'value'    => 'setting/logo.png',
+            ],
+            [
+                'key'      => 'third_image_about',
+                'neckname' => 'الصوره الثالثه في الرئسيه (من نحن)',
+                'type'     => 'file',
+                'value'    => 'setting/logo.png',
+            ],
+            [
+                'key'      => 'flexible_classes_ar',
+                'neckname' => 'الفصول المرنه بالعربيه',
+                'type'     => 'textarea',
+                'value' => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
+                زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
+            ],
+            [
+                'key'      => 'flexible_classes_en',
+                'neckname' => 'الفصول المرنه بالانجليزيه',
+                'type'     => 'textarea',
+                'value' => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
+                زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
+            ],
 
+            [
+                'key'      => 'Learn_anywhere_ar',
+                'neckname' => 'تعلم في أي مكان بالعربيه',
+                'type'     => 'textarea',
+                'value' => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
+                زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
+            ],
+            [
+                'key'      => 'Learn_anywhere_en',
+                'neckname' =>  'تعلم في أي مكان بالانجليزيه',
+                'type'     => 'textarea',
+                'value' => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
+                زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
+            ],
+            [
+                'key'      => 'new_collection_video',
+                'neckname' =>  'فيديو مجموعة جديدة',
+                'type'     => 'file',
+                'value' =>'setting/logo.png',
+            ],
+
+
+            [
+                'key'      => 'learners_counting',
+                'neckname' =>  'عدد المتعلمين',
+                'type'     => 'number',
+                 'value' => '1000'
+            ],
+
+            [
+                'key'      => 'courses_video_counting',
+                'neckname' =>  'عدد فيديوهات الدورات',
+                'type'     => 'number',
+                 'value' => '1000'
+            ],
+            [
+                'key'      => 'certified_students_counting',
+                'neckname' =>  'عدد الطلاب المعتمدين',
+                'type'     => 'number',
+                 'value' => '1000'
+            ],
+            [
+                'key'      => 'registered_enrolls_counting',
+                'neckname' =>  'عدد الطلبات المسجلة',
+                'type'     => 'number',
+                 'value' => '1000'
+            ],
+            [
+                'key'      => 'successfully_trained_counting',
+                'neckname' =>  'عدد المدربين بنجاح',
+                'type'     => 'number',
+                 'value' => '1000'
+            ],
+            // keys home pages end ///
+
+
+            //keys about pages //
+            [
+                'key'      => 'video_about',
+                'neckname' => 'فيديو من نحن',
+                'type'     => 'file',
+                'value' =>'setting/logo.png',
+            ],
+
+            [
+                'key'      => 'image_about',
+                'neckname' => 'صورة من نحن',
+                'type'     => 'file',
+                'value' =>'setting/logo.png',
+
+            ],
+            [
+                'key'      => 'about_title_ar',
+                'neckname' => 'عنوان من نحن بالعربيه',
+                'type'     => 'text',
+                'value' => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
+                زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
+            ],
+            [
+                'key'      => 'about_title_en',
+                'neckname' => 'عنوان من نحن بالانجليزيه',
+                'type'     => 'text',
+                'value' => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
+                زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
+            ],
+            [
+                'key'      => 'description_about_ar',
+                'neckname' => 'الوصف من نحن بالعربيه',
+                'type'     => 'textarea',
+                'value' => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
+                زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
+            ],
+            [
+                'key'      => 'description_about_en',
+                'neckname' => 'الوصف من نحن بالانجليزيه',
+                'type'     => 'textarea',
+                'value' => 'تطبيق "زاد": رفيقك الروحي في رحلة الإيمان
+                زاد هو تطبيق ديني شامل يقدم لك مجموعة واسعة من الأذكار والأدعية، بالإضافة إلى القرآن الكريم ومواقيت الصلاة والقبلة. يتميز التطبيق بتصميمه الجذاب وسهولة استخدامه، مما يجعله رفيقك المثالي في رحلة الإيمان.'
+            ],
+            //keys about pages end //
+
+
+            //keys faqs
+            [
+                'key'      => 'image_faqs',
+                'neckname' => 'صورة الاسئله الشائعه',
+                'type'     => 'file',
+                'value' =>'setting/logo.png',
+            ],
+            //keys faqs end
             [
                 'key'      => 'privacy_policy_ar',
                 'neckname' => 'سياسية الخصوصية بالعربيه',
