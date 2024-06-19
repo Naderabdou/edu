@@ -49,7 +49,10 @@ class User extends Authenticatable
     protected $appends = ['avatar_path', 'background_image_path'];
 
 
-
+    public function getNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
     public function firebase_tokens()
     {
         return $this->hasMany(FirebaseToken::class, 'user_id', 'id');

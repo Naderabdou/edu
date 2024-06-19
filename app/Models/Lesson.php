@@ -15,6 +15,11 @@ class Lesson extends Model
 
     protected $appends = ['video_lesson_path', 'pdf_lesson_path'];
 
+    public function getTitleAttribute()
+    {
+        return $this->attributes['title_' . app()->getLocale()];
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class);
@@ -36,11 +41,7 @@ class Lesson extends Model
         return $this->pdf_lesson ? asset('storage/' . $this->attributes['pdf_lesson']) : null;
     }
 
-    public function getTileAttribute()
-    {
-        return $this->attributes['title_' . app()->getLocale()];
-    } // end getNameAttribute
-
+  
 
     public function getDescAttribute()
     {

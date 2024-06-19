@@ -18,9 +18,11 @@ use App\Http\Resources\Api\Courses\RatesResource;
 use App\Http\Resources\Api\Courses\CourcesResource;
 use App\Http\Controllers\Api\Traits\ApiResponseTrait;
 use App\Http\Resources\Api\Courses\CategoriesResource;
+use App\Http\Resources\Api\Courses\CourseShowResource;
 use App\Http\Resources\Api\Courses\CourseTypeResource;
 use App\Http\Resources\Api\Courses\CourseLevelResource;
 use App\Http\Resources\Api\Courses\InstructorsResource;
+use App\Http\Resources\Api\Courses\CoursePagetionsResource;
 
 class CourseController extends Controller
 {
@@ -31,7 +33,7 @@ class CourseController extends Controller
 
             $query->where('title_ar', 'like', '%' . Request()->search . '%')->orWhere('title_en', 'like', '%' . Request()->search . '%');
         })->when(Request()->sort, function ($query) {
-if (request('sort') == 'latest') {
+            if (request('sort') == 'latest') {
                 $query->latest();
             } elseif (request('sort') == 'popular') {
                 $query->withCount('favorites')->orderBy('favorites_count', 'desc');
@@ -42,11 +44,14 @@ if (request('sort') == 'latest') {
             } elseif (request('sort') == 'default') {
                 $query->orderBy('id', 'desc');
             }
-        })->get();
+        })->paginate(9);
         $courses->filter(function ($course) {
             $course['rate'] = $course->rate->avg('rate') ?? 0;
             $course['users_count'] = $course->orders->count();
         });
+        // $courses->transform(function ($course) {
+        //     return new CourcesResource($course);
+        // });
 
 
         return $this->ApiResponse(CourcesResource::collection($courses)->response()->getData(true));
@@ -125,9 +130,62 @@ if (request('sort') == 'latest') {
             $course['users_count'] = $course->orders->count();
         });
 
+        // $courses->transform(function ($course) {
+        //     return new CourcesResource($course);
+        // });
+
+
         return $this->ApiResponse(CourcesResource::collection($courses)->response()->getData(true));
     }
 
+    public function show($id)
+    {
+
+        $course = Course::with('instructor', 'lessons', 'categories', 'rate', 'favorites')->withCount('rate', 'lessons')->find($id);
+        if (!$course) {
+            return $this->ApiResponse(null, transWord('لا يوجد دورة'), 404);
+        }
+
+        $course['rate_avg'] = $course->rate->avg('rate') ?? 0;
+        $course['users_count'] = $course->orders->count();
+        $course['is_favorite'] = $course->favorites->contains('user_id', auth()->id());
+
+        return $this->ApiResponse(new CourseShowResource($course));
+    }
+
+    public function instructorCourses($id)
+    {
+        $instructor = User::role('instructor')->find($id);
+        if (!$instructor) {
+            return $this->ApiResponse(null, transWord('لا يوجد مدرب'), 404);
+        }
+
+        $courses = $instructor->courses()->withCount('rate', 'lessons')->inRandomOrder()->take(3)->get();
+        $courses->filter(function ($course) {
+            $course['rate'] = $course->rate->avg('rate') ?? 0;
+            $course['users_count'] = $course->orders->count();
+        });
+
+        return $this->ApiResponse(CourcesResource::collection($courses));
+    }
+
+    public function related($id)
+    {
+        $course = Course::find($id);
+        if (!$course) {
+            return $this->ApiResponse(null, transWord('لا يوجد دورة'), 404);
+        }
+
+        $courses = Course::whereHas('categories', function ($query) use ($course) {
+            $query->whereIn('category_id', $course->categories->pluck('id'));
+        })->where('id', '!=', $course->id)->withCount('rate', 'lessons')->inRandomOrder()->take(3)->get();
+        $courses->filter(function ($course) {
+            $course['rate'] = $course->rate->avg('rate') ?? 0;
+            $course['users_count'] = $course->orders->count();
+        });
+
+        return $this->ApiResponse(CourcesResource::collection($courses));
+    }
 
     public function store(CoursesRequest $request)
     {

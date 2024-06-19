@@ -51,6 +51,9 @@ Route::middleware('api_localization')->namespace('Api')->group(function () {
     //------------------ Courses -----------------//
     Route::get('courses', 'CourseController@index');
     Route::get('courses/{id}', 'CourseController@show');
+    Route::get('courses/instructor/{id}', 'CourseController@instructorCourses');
+    Route::get('courses/related/{id}', 'CourseController@related');
+    Route::get('courses/{id}', 'CourseController@show');
     Route::get('courses/filter/list', 'CourseController@filterList');
     Route::get('filter', 'CourseController@filter');
 
