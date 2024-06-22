@@ -170,6 +170,7 @@ class ProfileController extends Controller
             $course['rate'] = $course->rate()->avg('rate');
             $course['progress'] = $progress;
             $course['certificate'] = $certificate;
+            $course['users_count'] = $course->orders->count();
             return $course;
         });
 

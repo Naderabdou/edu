@@ -6,6 +6,7 @@ use App\Models\Rate;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Lesson;
+use App\Models\Package;
 use App\Models\Watched;
 use App\Models\Category;
 use App\Models\OrderItems;
@@ -183,4 +184,9 @@ class Course extends Model
     //         ]
     //     ];
     // }
+
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class, 'package_courses', 'course_id', 'package_id');
+    }
 }

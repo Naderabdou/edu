@@ -18,8 +18,8 @@ return new class extends Migration
 
             $table->string('course_name');
             $table->string('price');
-            $table->string('discount')->nullable();
-            $table->string('price_after_discount')->nullable();
+            // $table->string('discount')->nullable();
+            // $table->string('price_after_discount')->nullable();
 
             $table->timestamps();
         });

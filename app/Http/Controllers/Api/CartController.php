@@ -19,28 +19,14 @@ class CartController extends Controller
         if (!$cart) {
             return $this->ApiResponse(null, transWord('سلة المشتريات فارغة'), 404);
         }
-        $totalPrice = $cart->orderItems->sum('price');
-        $totalDiscount = $cart->orderItems->sum('discount');
-        $totalPriceAfterDiscount = $cart->orderItems->sum('price_after_discount');
-
-
-        // $cart->update([
-        //     'total_price' => $totalPrice,
-        //     'discount' => $totalDiscount,
-        //     'price_after_discount' => $totalPriceAfterDiscount
-        // ]);
-
-        if ($cart->coupon_price) {
-            $cart->price_after_discount = max(0, $cart->price_after_discount - $cart->coupon_price);
-        }
 
         return $this->ApiResponse([
             'cart' => CartResource::collection($cart->orderItems),
             'total_price' => $cart->total_price,
             'total_discount' => $cart ->discount,
-            'price_after_discount' => $cart ->price_after_discount,
             'coupon_price' => $cart->coupon_price ?? 0,
             'coupon_code' => $cart->coupon_code ?? null,
+            'price_after_discount' => $cart ->price_after_discount,
 
         ], '', 200);
 
@@ -74,6 +60,7 @@ class CartController extends Controller
                 'phone' => auth()->user()->phone,
 
 
+
             ]
         );
 
@@ -92,9 +79,11 @@ class CartController extends Controller
 
 
         ]);
-        $totalPrice = $cart->price_before_discount + $course->totalPrice;
+        $totalPrice = $cart->price_after_discount + $course->totalPrice;
         $cart->update([
-            'price_before_discount' => $totalPrice,
+            'total_price' => $cart->total_price + $course->price,
+            'discount' => $cart->discount + $course->discount,
+            'price_after_discount' => $totalPrice
 
         ]);
         return $this->ApiResponse(null, transWord('تمت الاضافة بنجاح'));
@@ -145,17 +134,34 @@ class CartController extends Controller
         if ($cart->coupon_id || $cart->coupon_code) {
             return $this->ApiResponse(null, transWord('لا يمكن استخدام اكثر من كوبون واحد'), 400);
         }
-        $totalPriceAfterDiscount = $cart->orderItems->sum('price_after_discount') - $coupon->value;
+        $totalPriceAfterDiscount = $cart->price_after_discount - $coupon->value;
 
         $cart->update([
             'coupon_id' => $coupon->id,
             'coupon_code' => $coupon->code,
             'coupon_price' => $coupon->value,
+            'price_after_discount' => $totalPriceAfterDiscount
 
         ]);
 
         $coupon->increment('used');
 
         return $this->ApiResponse(null, transWord('تمت استخدام الكوبون بنجاح'));
+    }
+
+    public function checkout()
+    {
+
+        $cart = auth()->user()->cart;
+
+        if (!$cart) {
+            return $this->ApiResponse(null, transWord('سلة المشتريات فارغة'), 404);
+        }
+
+        $cart->update([
+            'status' => 'completed'
+        ]);
+
+        return $this->ApiResponse(null, transWord('تمت عملية الشراء بنجاح'));
     }
 }

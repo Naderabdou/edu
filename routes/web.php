@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/', function () {
+    return view('checkout');
+});
 // Localization Routes
 Route::get('language/{locale}', function ($locale) {
 
@@ -144,6 +146,11 @@ Route::middleware('localization')->group(function () {
             Route::get('payment/change/status', 'PaymentController@changeStatus')->name('payment.status');
 
             //------------------- End  payments Routes -------------------//
+
+            //-------------------  packages route -------------------//
+            Route::resource('packages', 'PackageController');
+            Route::get('packages/change/status', 'PackageController@changeStatus')->name('packages.status');
+            //------------------- End  packages route -------------------//
 
             //------------------- Orders Routes -------------------//
             Route::resource('orders', 'OrderController')->except(['create', 'store', 'edit', 'update']);

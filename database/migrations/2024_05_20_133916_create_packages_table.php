@@ -16,10 +16,15 @@ return new class extends Migration
             $table->string('name_en')->nullable();
             $table->string('name_ar')->nullable();
             $table->decimal('price', 10, 2)->default(0.00);
-            $table->decimal('discount', 10, 2)->default(0.00);
-            $table->decimal('price_after_discount', 10, 2)->default(0.00);
-            
-            $table->date('expiry_date')->nullable();
+            $table->enum('type',['monthly','yearly'])->default('monthly');
+            $table->text('features_en')->nullable();
+            $table->text('features_ar')->nullable();
+            $table->text('flaw_en')->nullable();
+            $table->text('flaw_ar')->nullable();
+        //    $table->integer('duration')->default(1);
+            $table->boolean('is_active')->default(1);
+
+          //  $table->date('expiry_date')->nullable();
 
             $table->timestamps();
         });

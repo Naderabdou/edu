@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('api_localization')->namespace('Api')->group(function () {
-
+Route::namespace('Api')->group(function () {
+    Route::post('credit', 'CheckoutController@credit')->name('credit');
+    Route::get('callback', 'CheckoutController@callback')->name('callback');
     //auth
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
@@ -61,6 +62,12 @@ Route::middleware('api_localization')->namespace('Api')->group(function () {
     //------------------ End Courses -----------------//
 
 
+    //------------------ subscribe Packages  -----------------//
+    Route::get('subscribe/packages', 'SubscribeController@index');
+    Route::get('subscribe/packages/{id}', 'SubscribeController@show');
+    //------------------ End subscribe Packages  -----------------//
+
+
     Route::middleware('auth:sanctum')->group(function () {
         //-----------------Profile-----------------//
         Route::get('logout', 'AuthController@logout');
@@ -89,6 +96,12 @@ Route::middleware('api_localization')->namespace('Api')->group(function () {
         Route::post('reviews/remove/{id}', 'ProfileController@removeReview');
         //-----------------End Reviews -----------------//
 
+        //----------------- User Quiz -----------------//
+        Route::get('quiz/user', 'QuizController@userQuiz');
+        // Route::get('quiz/user/{id}', 'QuizController@userQuizShow');
+        Route::post('quiz/user/submit', 'QuizController@userQuizSubmit');
+        //-----------------End User Quiz -----------------//
+
         //----------------- orders -----------------//
         Route::get('orders', 'ProfileController@orders');
         Route::get('orders/{id}', 'ProfileController@orderDetails');
@@ -110,20 +123,33 @@ Route::middleware('api_localization')->namespace('Api')->group(function () {
         Route::post('courses/topics/update/{id}', 'TopicesController@update');
 
         //----------------- lessons -----------------//
-       // Route::get('lessons/{id}', 'LessonController@index');
+        // Route::get('lessons/{id}', 'LessonController@index');
         Route::get('lessons/show/{id}', 'LessonController@show');
         Route::post('lessons/store', 'LessonController@store');
         Route::put('lessons/update/{id}', 'LessonController@update');
         Route::post('lessons/delete/{id}', 'LessonController@destroy');
         //-----------------End lessons -----------------//
 
-        //----------------- Quiz -----------------//
-       // Route::get('quiz/{id}', 'QuizController@index');
+        //----------------- Quiz And Questions-----------------//
+        Route::get('quiz/instructors', 'QuizController@index');
         Route::get('quiz/show/{id}', 'QuizController@show');
         Route::post('quiz/store', 'QuizController@store');
         Route::put('quiz/update/{id}', 'QuizController@update');
         Route::post('quiz/delete/{id}', 'QuizController@destroy');
+        // ----------------- Questions -----------------//
+        Route::get('quiz/questions/{id}', 'QuestionController@index');
+        Route::post('quiz/questions/store', 'QuestionController@store');
+        Route::put('quiz/questions/update/{id}', 'QuestionController@update');
+        Route::post('quiz/questions/delete/{id}', 'QuestionController@destroy');
         //-----------------End Quiz -----------------//
+
+        //----------------- Notifications -----------------//
+        Route::get('user/notifications', 'NotificationController@index');
+        Route::get('user/delete-notification/{id}', 'NotificationController@deleteNotification');
+        Route::get('user/delete-all-notifications', 'NotificationController@deleteAllNotifications');
+        Route::post('send/notification', 'NotificationController@sendNotification');
+
+        //-----------------End Notifications -----------------//
 
 
         //-----------------End Profile-----------------//
@@ -136,7 +162,11 @@ Route::middleware('api_localization')->namespace('Api')->group(function () {
         Route::get('cart/clear', 'CartController@clear');
         //coupon
         Route::post('cart/coupon', 'CartController@coupon');
-        Route::post('cart/checkout', 'CartController@checkout');
+        // Route::post('cart/checkout', 'CheckoutController@checkout');
+        Route::post('subscribe/packages/checkout', 'SubscribeController@checkout');
+
+
         //-----------------End Cart -----------------//
     });
 });
+

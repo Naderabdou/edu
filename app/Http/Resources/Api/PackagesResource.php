@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Api\Courses;
+namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Api\Courses\LessonResource;
-use App\Http\Resources\Api\QuizResource;
 
-class TopicCourseResource extends JsonResource
+class PackagesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +14,14 @@ class TopicCourseResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // dd($this->quiz);
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'lessons' => LessonResource::collection($this->lessons) ?? null,
+            'price' => $this->price,
+            'type' => $this->type,
+            'features' => $this->features,
+            'flaw' => $this->flaw,
+            
         ];
     }
 }

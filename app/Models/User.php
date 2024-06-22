@@ -58,23 +58,16 @@ class User extends Authenticatable
         return $this->hasMany(FirebaseToken::class, 'user_id', 'id');
     }
 
-    public function updateUserDevice()
+    public function updateUserDevice($token_firebase)
     {
-        if (request()->device_id) {
-            // $this->firebase_tokens()->updateOrCreate([
-            //     'device_id' => request()->device_id,
-            //     'token_firebase' => request()->token_firebase,
-            // ]);
+        $this->firebase_tokens()->delete();
 
+        // Store the new token
+        $this->firebase_tokens()->create([
+            'device_id' => $token_firebase,
+            'token_firebase' => $token_firebase,
+        ]);
 
-            $this->firebase_tokens()->where('device_id', request()->device_id)->delete();
-
-            // Store the new token
-            $this->firebase_tokens()->create([
-                'device_id' => request()->device_id,
-                'token_firebase' => request()->token_firebase,
-            ]);
-        }
     }
 
     public function getAvatarPathAttribute()

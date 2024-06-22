@@ -35,6 +35,14 @@ class AuthController extends Controller
         $user = auth()->user();
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        // Delete all existing firebase tokens for the user
+
+        // Generate a new random key
+        $token_firebase = $this->generateRandomKey();
+
+        // Create a new firebase token record for the user
+       $user->updateUserDevice($token_firebase);
+
 
         return $this->ApiResponse(
             [
@@ -45,19 +53,34 @@ class AuthController extends Controller
         );
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $request->user()->currentAccessToken()->delete();
+        $user = auth()->user();
+
+
+
+        $user->firebase_tokens()->delete();
+
+        $user->tokens()->delete();
+
         return $this->ApiResponse(null, transWord('تم تسجيل الخروج بنجاح'));
     }
 
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
+        $data['user_type'] = 'student';
         $user = User::create($data);
+        $user->assignRole('student');
         auth()->login($user);
 
         $token = $user->createToken('auth_token')->plainTextToken;
+        $token_firebase = $this->generateRandomKey();
+
+        $user->firebase_tokens()->create([
+            'device_id' => $token_firebase,
+            'token_firebase' => $token_firebase,
+        ]);
 
         return $this->ApiResponse(
             [
@@ -77,6 +100,20 @@ class AuthController extends Controller
         }
         $user->sendEmailVerificationNotification();
         return $this->ApiResponse(null, transWord('تم ارسال كوده استعادة كلمة المرور'));
+    }
+    public function generateRandomKey($length = 163)
+    {
+        // Check if openssl_random_pseudo_bytes is available
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            // Generate a random string of the specified length
+            $bytes = openssl_random_pseudo_bytes($length / 2);
+        } else {
+            // Fallback to a less secure random_bytes if openssl_random_pseudo_bytes is not available
+            $bytes = random_bytes($length / 2);
+        }
+        // Convert the binary data into hexadecimal representation
+        $key = bin2hex($bytes);
+        return $key;
     }
 
 

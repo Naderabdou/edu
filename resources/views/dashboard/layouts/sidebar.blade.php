@@ -122,6 +122,12 @@
             </li>
 
 
+            <li class="nav-item {{ areActiveRoutes(['admin.packages.index', 'admin.packages.edit']) }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.packages.index') }}">
+                    <i class="fas fa-box"></i>
+                    <span class="menu-title text-truncate">{{ transWord('الباقات') }}</span>
+                </a>
+            </li>
 
             <li class="nav-item {{ areActiveRoutes(['admin.contacts.index', 'admin.contacts.edit']) }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.contacts.index') }}"><i
