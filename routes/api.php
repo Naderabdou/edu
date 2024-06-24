@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('Api')->group(function () {
-    Route::post('credit', 'CheckoutController@credit')->name('credit');
-    Route::get('callback', 'CheckoutController@callback')->name('callback');
+    Route::get('checkout/callback', 'CheckoutController@callback');
+
+    Route::get('checkout/payments/methods', 'CheckoutController@payments');
+
     //auth
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
@@ -97,9 +99,11 @@ Route::namespace('Api')->group(function () {
         //-----------------End Reviews -----------------//
 
         //----------------- User Quiz -----------------//
-        Route::get('quiz/user', 'QuizController@userQuiz');
-        // Route::get('quiz/user/{id}', 'QuizController@userQuizShow');
-        Route::post('quiz/user/submit', 'QuizController@userQuizSubmit');
+        Route::get('exam/user', 'ExamController@index');
+        Route::put('exam/update/user/{id}', 'ExamController@update');
+        Route::post('exam/delete/user/{id}', 'ExamController@delete');
+        Route::get('exam/user/{id}', 'ExamController@show');
+        Route::post('exam/submit/user', 'ExamController@store');
         //-----------------End User Quiz -----------------//
 
         //----------------- orders -----------------//
@@ -162,11 +166,11 @@ Route::namespace('Api')->group(function () {
         Route::get('cart/clear', 'CartController@clear');
         //coupon
         Route::post('cart/coupon', 'CartController@coupon');
-        // Route::post('cart/checkout', 'CheckoutController@checkout');
+        Route::get('checkout', 'CheckoutController@index');
+        Route::post('checkout/store', 'CheckoutController@store');
         Route::post('subscribe/packages/checkout', 'SubscribeController@checkout');
 
 
         //-----------------End Cart -----------------//
     });
 });
-

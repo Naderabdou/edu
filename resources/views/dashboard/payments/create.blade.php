@@ -67,6 +67,19 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="iframeId">PAYMOB_IFRAME_ID</label>
+                                                    <input type="text" id="iframeId" class="form-control" name="iframeId"
+                                                        value="{{ old('iframeId') }}" />
+                                                    @error('iframeId')
+                                                        <span class="alert alert-danger">
+                                                            <small class="errorTxt">{{ $message }}</small>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
 
                                             <div class="col-12">
                                                 <div class="form-group">

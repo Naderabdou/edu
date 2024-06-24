@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Quiz;
+use App\Traits\exam;
 use App\Models\TopicCourse;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ExamResource;
 use App\Http\Requests\Api\QuizRequest;
 use App\Http\Resources\Api\QuizResource;
 use App\Http\Requests\Api\QuizSubmitRequest;
@@ -14,19 +16,33 @@ use App\Http\Controllers\Api\Traits\ApiResponseTrait;
 
 class QuizController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait,exam;
 
-    public function userQuizSubmit(QuizSubmitRequest $request){
+    // public function userQuizSubmit(QuizSubmitRequest $request)
+    // {
+    //     $user = auth()->user();
+    //     $data = $request->validated();
+    //     $quiz = $this->getQuiz($data['quiz_id']);
+    //     if (!$quiz) {
+    //         return $this->ApiResponse(null, transWord('هذا الامتحان غير موجود'), 401);
+    //     }
 
-        $user = auth()->user();
-        $data = $request->validated();
-        $quiz = Quiz::find($data['quiz_id'])->questions;
-        dd($quiz);
+    //     $score = $this->calculateScore($data, $quiz);
 
-        $user->quizzes()->attach($quiz->id, ['answers' => json_encode($data['answers'])]);
-        return $this->ApiResponse(null, transWord('تم ارسال الاجابات بنجاح'));
+    //     $isPass = $this->isPass($score, $quiz->pass_score);
+    //  $result =  $this->attachUserQuiz($user, $quiz, $score, $isPass, count($data['question_id']));
 
-    }
+
+    //     return $this->ApiResponse(new ExamResource($result), transWord('تم ارسال الاجابات بنجاح وهذه نتيجتك'));
+    // }
+
+    // public function userQuiz()
+    // {
+    //     $user = auth()->user();
+    //     $quizzes = $user->quiz()->get();
+    //     return $this->ApiResponse(ExamResource::collection($quizzes));
+    // }
+
 
     public function index()
     {

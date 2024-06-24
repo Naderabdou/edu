@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Quiz;
 use App\Models\Rate;
 use App\Models\Order;
 use App\Models\Course;
@@ -134,6 +135,12 @@ class User extends Authenticatable
         return $this->hasMany(Order::class)->where('type', 'order');
     }
 
+
+    public function quiz()
+    {
+        return $this->belongsToMany(Quiz::class, 'user_quizzes','user_id','quiz_id')->withPivot('score','total_score','is_passed','total_ques')->withTimestamps();
+
+    }
 
 
 

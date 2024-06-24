@@ -50,8 +50,8 @@ namespace App\Providers;
         use App\Repositories\Sql\SettingRepository;
         use App\Repositories\Contract\SettingRepositoryInterface;
 
-        // use App\Repositories\Sql\UserRepository;
-        // use App\Repositories\Contract\UserRepositoryInterface;
+        use App\Repositories\Sql\UserRepository;
+        use App\Repositories\Contract\UserRepositoryInterface;
 
         use App\Repositories\Sql\ContactRepository;
         use App\Repositories\Contract\ContactRepositoryInterface;
@@ -103,7 +103,7 @@ class RepositoriesServiceProvider extends ServiceProvider
 
         $this->app->bind(SettingRepositoryInterface::class, SettingRepository::class);
 
-        // $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
 
         $this->app->bind(BaseRepositoryInterface::class, BaseRepository::class);
     }

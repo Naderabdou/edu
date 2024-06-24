@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Course;
 use App\Models\Question;
 use App\Models\TopicCourse;
@@ -38,6 +39,10 @@ class Quiz extends Model
     public function getTimerAttribute($value)
     {
         return date('H:i', strtotime($value));
+    }
+
+    public function user(){
+        return $this->belongsToMany(User::class, 'user_quizzes','quiz_id','user_id')->withPivot('score','total_score','is_passed','total_ques');
     }
 
 

@@ -21,6 +21,9 @@ class CartController extends Controller
         }
 
         return $this->ApiResponse([
+            'id' => $cart->id,
+            'order_number' => $cart->order_number,
+            'status' => $cart->status,
             'cart' => CartResource::collection($cart->orderItems),
             'total_price' => $cart->total_price,
             'total_discount' => $cart ->discount,

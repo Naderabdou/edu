@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Rate;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return view('checkout');
 });
+
+Route::post('/create-order', [PaymentController::class, 'createOrder'])->name('create-order');
+
 // Localization Routes
 Route::get('language/{locale}', function ($locale) {
 
@@ -62,11 +68,11 @@ Route::middleware('localization')->group(function () {
             Route::resource('reviews', 'ReviewController');
             //  =========================== End reviews  =========================== //
 
-              // ------------------- Features Routes -------------------//
-              Route::resource('features', 'FeatureController');
-              //------------------- End Features Routes -------------------//
+            // ------------------- Features Routes -------------------//
+            Route::resource('features', 'FeatureController');
+            //------------------- End Features Routes -------------------//
 
-               //-------------------- Partner  Routes -------------------//
+            //-------------------- Partner  Routes -------------------//
             Route::resource('partners', 'PartnerController');
             //-------------------- Partner Routes -------------------//
             //  =========================== Contact Us  =========================== //

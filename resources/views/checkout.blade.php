@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Paymob Payment</title>
 </head>
+
 <body>
     <form action="{{ route('credit') }}" method="POST">
-        {{ csrf_field() }}
-        <input style="width: fit-content" type="submit" value="Paymob" class="btn">
+        @csrf
+        <label for="amount">Amount:</label>
+        <input type="text" name="amount" id="amount" required>
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" id="first_name" required>
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name" id="last_name" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" id="phone_number" required>
+        <button type="submit">Pay</button>
     </form>
 </body>
+
 </html>

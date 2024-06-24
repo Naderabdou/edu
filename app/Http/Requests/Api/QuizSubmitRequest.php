@@ -22,9 +22,12 @@ class QuizSubmitRequest extends MasterApiRequest
     public function rules(): array
     {
         return [
-            'quiz_id' => 'required|exists:quizzes,id',
-            'answers' => 'required|array',
-            'answers.*' => 'required',
+            'quiz_id' => $this->method() == 'POST' ? 'required|exists:quizzes,id' : '',
+            'answers_id' => 'required|array',
+            'answers_id.*' => 'required|exists:answers,id',
+            'question_id' => 'required|array',
+            'question_id.*' => 'required|exists:questions,id',
+
 
         ];
     }

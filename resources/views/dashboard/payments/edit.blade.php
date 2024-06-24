@@ -69,7 +69,18 @@
                                                     @enderror
                                                 </div>
                                             </div>
-
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="iframeId">iframeId</label>
+                                                    <input type="text" id="iframeId" class="form-control" name="iframeId"
+                                                        value="{{ old('iframeId',$payment->iframeId) }}" />
+                                                    @error('iframeId')
+                                                        <span class="alert alert-danger">
+                                                            <small class="errorTxt">{{ $message }}</small>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
 
                                             <div class="col-12">
                                                 <div class="form-group">
