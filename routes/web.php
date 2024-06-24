@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Rate;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +13,9 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
 // Localization Routes
