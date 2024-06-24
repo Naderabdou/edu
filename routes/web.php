@@ -15,11 +15,7 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
-Route::get('/', function () {
-    return view('checkout');
-});
 
-Route::post('/create-order', [PaymentController::class, 'createOrder'])->name('create-order');
 
 // Localization Routes
 Route::get('language/{locale}', function ($locale) {
