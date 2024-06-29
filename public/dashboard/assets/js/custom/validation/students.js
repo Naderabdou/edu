@@ -382,7 +382,7 @@ $(document).ready(function () {
             },
             'skills[]':{
                 required: true,
-                noSpecialChars: true,
+                //noSpecialChars: true,
 
 
             },

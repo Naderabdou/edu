@@ -361,8 +361,8 @@
 
                         fetch(imageUrl).then(res => res.blob()).then(load).catch(error)
                     },
-                    process: "{{ route('admin.tmp.uploads', ['folder' => 'students']) }}",
-                    revert: "{{ route('admin.tmp.delete', ['folder' => 'students']) }}",
+                    process: "{{ route('admin.tmp.uploads', ['folder' => 'instructors']) }}",
+                    revert: "{{ route('admin.tmp.delete', ['folder' => 'instructors']) }}",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 

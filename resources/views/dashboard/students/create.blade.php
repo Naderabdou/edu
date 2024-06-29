@@ -398,92 +398,7 @@
         </script>
         <script src="{{ asset('dashboard/assets/js/custom/validation/students.js') }}"></script>
         <script src="{{ asset('dashboard/app-assets/js/custom/preview-image.js') }}"></script>
-        {{-- <script src="https://cdn.tiny.cloud/1/ncu4y607nayo1coo3vekski4tweqhf55lrvzpu0mnmnsstgw/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"></script>
-        <script>
-            tinymce.init({
-                menubar: false,
-                selector: 'textarea.tinyEditor',
-                plugins: 'anchor autolink emoticons lists searchreplace wordcount',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-                setup: function(editor) {
-                    editor.on('init', function() {
-                        // Check if the content direction should be RTL or LTR
-                        const editorName = editor.id.split('_'); // Set to true for RTL, false for LTR
 
-                        const ID = editorName[editorName.length - 1];
-
-                        const content = editor.getBody();
-                        if (ID === 'ar') {
-                            content.style.direction = 'rtl';
-                        } else {
-                            content.style.direction = 'ltr';
-                        }
-                    });
-                }
-            });
-        </script> --}}
-
-        {{-- <script>
-            // get a collection of elements with class filepond
-
-
-            const inputElements = document.querySelectorAll('input.filepond');
-
-            // loop over input elements
-            Array.from(inputElements).forEach(inputElement => {
-
-                // create a FilePond instance at the input element location
-                FilePond.create((inputElement), {
-
-                    // acceptedFileTypes: ['image/png', 'image/jpeg', 'image/svg', 'image/jpg'],
-                    acceptedFileTypes: ['image/*'],
-
-                    labelFileTypeNotAllowed: window.avatarMessage,
-                    minFileSize: '0.5MB',
-                    maxFileSize: '30MB',
-                    labelMaxFileSizeExceeded: "{{ transWord('الحد الاقصى لحجم الملف هو') }}",
-                    labelFileProcessing: "{{ transWord('جاري التحميل') }}",
-                    labelFileProcessingComplete: "{{ transWord('تم التحميل') }}",
-                    labelTapToCancel: "{{ transWord('انقر للغاء') }}",
-                    labelTapToRetry: "{{ transWord('انقر للاعاده') }}",
-                    labelIdle: "{{ transWord('قم بسحب الصوره او') }} <span class='filepond--label-action' tabindex='0'> انقر هنا </span>",
-
-                });
-                FilePond.setOptions({
-                    required: true,
-
-                    server: {
-                        load: (source, load, error, progress, abort, headers) => {
-                            const baseUrl = "http://127.0.0.1:8000/storage/";
-                            let imageUrl = source;
-
-                            // Check if the source starts with the base URL twice
-                            if (source.startsWith(baseUrl + baseUrl)) {
-                                imageUrl = source.replace(baseUrl, "");
-                            }
-
-                            console.log(imageUrl);
-                            //const imageUrl = "{{ asset('storage') }}/" + source;
-                            // const imageUrl = "{{ asset('storage/' . old('image')) }}";
-                            fetch(imageUrl).then(res => res.blob()).then(load).catch(error)
-                        },
-                        process: "{{ route('admin.tmp.uploads', ['folder' => 'students']) }}",
-                        revert: "{{ route('admin.tmp.delete', ['folder' => 'students']) }}",
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-                        },
-                        withCredentials: false,
-                        // onerror: (response) => response.data,
-                    },
-
-
-                })
-
-
-            })
-        </script> --}}
 
         <script>
             var uploadedFileIdAvatar = null;
@@ -583,10 +498,9 @@
                 labelTapToCancel: "{{ transWord('انقر للغاء') }}",
                 labelTapToRetry: "{{ transWord('انقر للاعاده') }}",
                 labelIdle: "{{ transWord('قم بسحب الصوره او') }} <span class='filepond--label-action' tabindex='0'> انقر هنا </span>",
-             
+
                 onprocessfile: function(error, file) {
                     if (error) {
-                        console.log('حدث خطأ أثناء معالجة الملف:', error);
                     } else {
 
                         uploadedFileId = file.serverId;
@@ -649,7 +563,6 @@
                         localStorage.removeItem('background_image');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error deleting file:', textStatus, errorThrown);
                     }
                 });
             }

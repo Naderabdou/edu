@@ -58,7 +58,7 @@ trait PaymentsMethod
     public function handlePaymentSuccess($data)
     {
         $order = Order::where('merchant_order_id', request('merchant_order_id'))->first();
-        $order->update(['type' => 'order']);
+        $order->update(['type' => 'order' , 'status' => 'payment']);
         return $this->ApiResponse(new TransactionResource($data), transWord('تمت عملية الدفع بنجاح'));
     }
 

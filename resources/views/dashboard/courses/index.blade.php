@@ -77,13 +77,16 @@
                                                 </td>
 
 
-                                                <td>{{ $course->instructor->username }}</td>
+                                                <td>{{ $course->instructor?->username }}</td>
                                                 <td>
                                                     <a href="{{ $course->intro_video_path }}" target="_blank">فتح
                                                         الفيديو</a>
                                                 </td>
 
-                                                <td>2</td>
+                                                <td>
+                                                  
+                                                    {{ $course->orders->count() }}
+                                                </td>
 
 
                                                 <td class="text-center">

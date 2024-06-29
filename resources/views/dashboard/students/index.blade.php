@@ -47,16 +47,16 @@
                                 <table class="datatables-basic table">
                                     <thead>
 
-                                            <th>#</th>
+                                        <th>#</th>
                                         {{-- <th>{{ transWord('الصوره') }}</th> --}}
-                                            <th>{{ transWord('الاسم الاول') }}</th>
-                                            <th>{{ transWord('الاسم الثانى') }}</th>
-                                            <th>{{ transWord('اسم المستخدم') }}</th>
-                                            <th>{{ transWord('اسم العام') }}</th>
-                                            <th>{{ transWord('البريد الإلكترونى') }}</th>
-                                            <th>{{ transWord('رقم الجوال') }}</th>
-                                            {{-- <th>{{ transWord('العنوان') }}</th> --}}
-                                            <th>{{ transWord('الإجراءات') }}</th>
+                                        <th>{{ transWord('الاسم الاول') }}</th>
+                                        <th>{{ transWord('الاسم الثانى') }}</th>
+                                        <th>{{ transWord('اسم المستخدم') }}</th>
+                                        <th>{{ transWord('اسم العام') }}</th>
+                                        <th>{{ transWord('البريد الإلكترونى') }}</th>
+                                        <th>{{ transWord('رقم الجوال') }}</th>
+                                        {{-- <th>{{ transWord('العنوان') }}</th> --}}
+                                        <th>{{ transWord('الإجراءات') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -90,10 +90,12 @@
                                                             data-id="{{ $student->id }}"
                                                             class="btn btn-sm btn-danger item-delete"><i
                                                                 class="fa-solid fa-trash-can"></i></a>
-                                                       <a href="#" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#exampleModalLong{{$student->id}}">
-                                                                    <i class="fas fa-eye"></i>
-                                                     </a>
-                                                     {{-- <a href="#" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#exampleModalLong{{$student->id}}">
+                                                        <a href="#" class="btn btn-info btn-circle btn-sm"
+                                                            data-toggle="modal"
+                                                            data-target="#exampleModalLong{{ $student->id }}">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        {{-- <a href="#" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#exampleModalLong{{$student->id}}">
                                                         <i class="fas fa-eye"></i>
                                          </a> --}}
                                                     </div>
@@ -101,12 +103,15 @@
                                             </tr>
 
 
-                                            <div class="modal fade" id="exampleModalLong{{$student->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal fade" id="exampleModalLong{{ $student->id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">{{ transWord('تفاصيل الطالب') }}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">
+                                                                {{ transWord('تفاصيل الطالب') }}</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -116,51 +121,40 @@
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('الاسم الاول') }} : </b>
+                                                                            <b>{{ transWord('الاسم الاول') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$student->first_name}}
+                                                                            {{ $student->first_name }}
 
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('الاسم الثانى') }} : </b>
+                                                                            <b>{{ transWord('الاسم الثانى') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$student->last_name}}
+                                                                            {{ $student->last_name }}
                                                                         </div>
 
                                                                     </div>
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('اسم المستخدم') }} : </b>
+                                                                            <b>{{ transWord('اسم المستخدم') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$student->username}}
+                                                                            {{ $student->username }}
                                                                         </div>
 
                                                                     </div>
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('اسم العام') }} : </b>
+                                                                            <b>{{ transWord('اسم العام') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$student->public_name}}
-                                                                        </div>
-
-                                                                    </div>
-
-
-                                                                    <div class="row">
-                                                                        <div class="col-lg-5">
-                                                                            <b>{{  transWord('البريد الإلكترونى') }} : </b>
-                                                                        </div>
-                                                                        <div class="col-lg-7">
-                                                                            {{$student->email}}
+                                                                            {{ $student->public_name }}
                                                                         </div>
 
                                                                     </div>
@@ -168,22 +162,21 @@
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('رقم الجوال') }} : </b>
+                                                                            <b>{{ transWord('البريد الإلكترونى') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$student->phone}}
+                                                                            {{ $student->email }}
                                                                         </div>
 
                                                                     </div>
 
 
-
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('البايو') }} : </b>
+                                                                            <b>{{ transWord('رقم الجوال') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$student->bio}}
+                                                                            {{ $student->phone }}
                                                                         </div>
 
                                                                     </div>
@@ -192,12 +185,30 @@
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('المهارات') }} : </b>
+                                                                            <b>{{ transWord('البايو') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            @foreach ($student->skills as $skill)
-                                                                                <span class="badge badge-primary">{{ $skill }}</span>
-                                                                            @endforeach
+                                                                            {{ $student->bio }}
+                                                                        </div>
+
+                                                                    </div>
+
+
+
+                                                                    <div class="row">
+                                                                        <div class="col-lg-5">
+                                                                            <b>{{ transWord('المهارات') }} : </b>
+                                                                        </div>
+                                                                        <div class="col-lg-7">
+
+                                                                            @if ($student->skills)
+                                                                                @foreach ($student->skills as $skill)
+                                                                                    <span
+                                                                                        class="badge badge-primary">{{ $skill }}</span>
+                                                                                @endforeach
+                                                                            @else
+                                                                                <span>{{ transWord('No skills found.') }}</span>
+                                                                            @endif
 
                                                                         </div>
 
@@ -215,7 +226,9 @@
                                                                             <b>{{ __('الصوره') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            <img height="44" src="{{ $student->avatar_path}}" alt="">
+                                                                            <img height="44"
+                                                                                src="{{ $student->avatar_path }}"
+                                                                                alt="">
                                                                         </div>
                                                                     </div>
 
@@ -224,7 +237,9 @@
                                                                             <b>{{ __('الخلفيه') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            <img height="44" src="{{ $student->background_image_path }}" alt="">
+                                                                            <img height="44"
+                                                                                src="{{ $student->background_image_path }}"
+                                                                                alt="">
                                                                         </div>
                                                                     </div>
 
@@ -233,7 +248,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('إغلاق') }}</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-dismiss="modal">{{ __('إغلاق') }}</button>
                                                         </div>
                                                     </div>
                                                 </div>

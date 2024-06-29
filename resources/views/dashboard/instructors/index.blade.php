@@ -47,16 +47,16 @@
                                 <table class="datatables-basic table">
                                     <thead>
 
-                                            <th>#</th>
+                                        <th>#</th>
                                         {{-- <th>{{ transWord('الصوره') }}</th> --}}
-                                            <th>{{ transWord('الاسم الاول') }}</th>
-                                            <th>{{ transWord('الاسم الثانى') }}</th>
-                                            <th>{{ transWord('اسم المستخدم') }}</th>
-                                            <th>{{ transWord('اسم العام') }}</th>
-                                            <th>{{ transWord('البريد الإلكترونى') }}</th>
-                                            <th>{{ transWord('رقم الجوال') }}</th>
-                                            {{-- <th>{{ transWord('العنوان') }}</th> --}}
-                                            <th>{{ transWord('الإجراءات') }}</th>
+                                        <th>{{ transWord('الاسم الاول') }}</th>
+                                        <th>{{ transWord('الاسم الثانى') }}</th>
+                                        <th>{{ transWord('اسم المستخدم') }}</th>
+                                        <th>{{ transWord('اسم العام') }}</th>
+                                        <th>{{ transWord('البريد الإلكترونى') }}</th>
+                                        <th>{{ transWord('رقم الجوال') }}</th>
+                                        {{-- <th>{{ transWord('العنوان') }}</th> --}}
+                                        <th>{{ transWord('الإجراءات') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -90,10 +90,12 @@
                                                             data-id="{{ $instructor->id }}"
                                                             class="btn btn-sm btn-danger item-delete"><i
                                                                 class="fa-solid fa-trash-can"></i></a>
-                                                       <a href="#" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#exampleModalLong{{$instructor->id}}">
-                                                                    <i class="fas fa-eye"></i>
-                                                     </a>
-                                                     {{-- <a href="#" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#exampleModalLong{{$student->id}}">
+                                                        <a href="#" class="btn btn-info btn-circle btn-sm"
+                                                            data-toggle="modal"
+                                                            data-target="#exampleModalLong{{ $instructor->id }}">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        {{-- <a href="#" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#exampleModalLong{{$student->id}}">
                                                         <i class="fas fa-eye"></i>
                                          </a> --}}
                                                     </div>
@@ -101,12 +103,16 @@
                                             </tr>
 
 
-                                            <div class="modal fade" id="exampleModalLong{{$instructor->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal fade" id="exampleModalLong{{ $instructor->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">{{ transWord('تفاصيل المدرب') }}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">
+                                                                {{ transWord('تفاصيل المدرب') }}</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -116,51 +122,40 @@
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('الاسم الاول') }} : </b>
+                                                                            <b>{{ transWord('الاسم الاول') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$instructor->first_name}}
+                                                                            {{ $instructor->first_name }}
 
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('الاسم الثانى') }} : </b>
+                                                                            <b>{{ transWord('الاسم الثانى') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$instructor->last_name}}
+                                                                            {{ $instructor->last_name }}
                                                                         </div>
 
                                                                     </div>
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('اسم المستخدم') }} : </b>
+                                                                            <b>{{ transWord('اسم المستخدم') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$instructor->username}}
+                                                                            {{ $instructor->username }}
                                                                         </div>
 
                                                                     </div>
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('اسم العام') }} : </b>
+                                                                            <b>{{ transWord('اسم العام') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$instructor->public_name}}
-                                                                        </div>
-
-                                                                    </div>
-
-
-                                                                    <div class="row">
-                                                                        <div class="col-lg-5">
-                                                                            <b>{{  transWord('البريد الإلكترونى') }} : </b>
-                                                                        </div>
-                                                                        <div class="col-lg-7">
-                                                                            {{$instructor->email}}
+                                                                            {{ $instructor->public_name }}
                                                                         </div>
 
                                                                     </div>
@@ -168,22 +163,21 @@
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('رقم الجوال') }} : </b>
+                                                                            <b>{{ transWord('البريد الإلكترونى') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$instructor->phone}}
+                                                                            {{ $instructor->email }}
                                                                         </div>
 
                                                                     </div>
 
 
-
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('البايو') }} : </b>
+                                                                            <b>{{ transWord('رقم الجوال') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            {{$instructor->bio}}
+                                                                            {{ $instructor->phone }}
                                                                         </div>
 
                                                                     </div>
@@ -192,12 +186,30 @@
 
                                                                     <div class="row">
                                                                         <div class="col-lg-5">
-                                                                            <b>{{  transWord('المهارات') }} : </b>
+                                                                            <b>{{ transWord('البايو') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            @foreach ($instructor->skills as $skill)
-                                                                                <span class="badge badge-primary">{{ $skill }}</span>
-                                                                            @endforeach
+                                                                            {{ $instructor->bio }}
+                                                                        </div>
+
+                                                                    </div>
+
+
+
+                                                                    <div class="row">
+                                                                        <div class="col-lg-5">
+                                                                            <b>{{ transWord('المهارات') }} : </b>
+                                                                        </div>
+                                                                        <div class="col-lg-7">
+                                                                            @if ($instructor->skills )
+                                                                                @foreach ($instructor->skills as $skill)
+                                                                                    <span
+                                                                                        class="badge badge-primary">{{ $skill }}</span>
+                                                                                @endforeach
+                                                                            @else
+                                                                                <span>No skills found.</span>
+                                                                            @endif
+
 
                                                                         </div>
 
@@ -215,7 +227,9 @@
                                                                             <b>{{ __('الصوره') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            <img height="44" src="{{ $instructor->avatar_path}}" alt="">
+                                                                            <img height="44"
+                                                                                src="{{ $instructor->avatar_path }}"
+                                                                                alt="">
                                                                         </div>
                                                                     </div>
 
@@ -224,7 +238,9 @@
                                                                             <b>{{ __('الخلفيه') }} : </b>
                                                                         </div>
                                                                         <div class="col-lg-7">
-                                                                            <img height="44" src="{{ $instructor->background_image_path }}" alt="">
+                                                                            <img height="44"
+                                                                                src="{{ $instructor->background_image_path }}"
+                                                                                alt="">
                                                                         </div>
                                                                     </div>
 
@@ -233,7 +249,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('إغلاق') }}</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-dismiss="modal">{{ __('إغلاق') }}</button>
                                                         </div>
                                                     </div>
                                                 </div>

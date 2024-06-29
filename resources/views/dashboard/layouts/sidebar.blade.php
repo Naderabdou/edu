@@ -65,11 +65,11 @@
                     <i class="fas fa-clipboard"></i><span
                         class="menu-title text-truncate">{{ transWord('الامتحانات') }}</span></a>
             </li>
-            <li class="nav-item {{ areActiveRoutes(['admin.certificates.index', 'admin.certificates.edit']) }}">
+            {{-- <li class="nav-item {{ areActiveRoutes(['admin.certificates.index', 'admin.certificates.edit']) }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.certificates.index') }}">
                     <i class="fas fa-certificate"></i><span
                         class="menu-title text-truncate">{{ transWord('الشهادات') }}</span></a>
-            </li>
+            </li> --}}
             <li class="nav-item {{ areActiveRoutes(['admin.coupons.index', 'admin.coupons.edit']) }}">
                 <a class="d-flex align-items-center" href="{{ route('admin.coupons.index') }}">
                     <i class="fas fa-ticket-alt"></i>
