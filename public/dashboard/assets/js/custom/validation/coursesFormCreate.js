@@ -31,6 +31,15 @@ $(document).ready(function () {
     }, window.price_after);
 
 
+    $.validator.addMethod("discountedPriceComp", function (value, element, params) {
+
+        var priceValue = $('#price').val();
+
+        var discountPrice = Number(value);
+
+        return discountPrice <= Number(priceValue);
+    }, window.discountPrice);
+
 
 
     $("#coursesFormCreate").validate({
@@ -116,6 +125,9 @@ $(document).ready(function () {
             },
             price_after_discount: {
                 discountedPrice : true,
+                discountedPriceComp: {
+                    originalPrice: $('#price').val()
+                },
               number: true,
             },
             'category_id[]': {
@@ -299,7 +311,11 @@ $(document).ready(function () {
             },
             price_after_discount: {
                 discountedPrice : true,
+                discountedPriceComp: {
+                    originalPrice: $('#price').val()
+                },
               number: true,
+
             },
             'category_id[]': {
                 required: true

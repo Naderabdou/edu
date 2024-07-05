@@ -21,6 +21,7 @@ class CourseRequest extends FormRequest
      */
     public function rules(): array
     {
+ 
         return [
             //'slug_ar' => 'nullable|string|unique:courses,slug_ar',
             'slug_en' => request()->method() == 'POST' ? 'required|string|unique:courses,slug_en' : 'required|string|unique:courses,slug_en,' . $this->route('course'),
@@ -38,6 +39,7 @@ class CourseRequest extends FormRequest
             'type_course' => 'nullable|string|in:free,paid',
             'price' => 'nullable|numeric',
             'discount' => 'nullable|numeric',
+            'price_after_discount' => 'nullable|numeric',
             'category_id' => 'required|array',
             'category_id.*' => 'required|exists:categories,id',
             'instructor_id' => 'required|exists:users,id',

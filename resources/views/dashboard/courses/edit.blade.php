@@ -41,19 +41,20 @@
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" id='check-slug' value="{{ route('admin.check.slug') }}">
-                                        <input type="hidden" id='type' value="" name="intro_video_type" disabled="true">
+                                        <input type="hidden" id='type' value="" name="intro_video_type"
+                                            disabled="true">
                                         <input type="hidden" id='id' value="{{ $course->id }}" name="id">
 
 
 
                                         <div class="accordion " id="accordionExample">
                                             {{-- cousre Info --}}
-                                          @include('dashboard.components.courses.edit.courseInfo')
+                                            @include('dashboard.components.courses.edit.courseInfo')
                                             {{-- end course Info --}}
 
 
                                             {{-- course intro video --}}
-                                          @include('dashboard.components.courses.edit.courseIntro')
+                                            @include('dashboard.components.courses.edit.courseIntro')
                                             {{-- end course intro video --}}
 
 
@@ -65,7 +66,7 @@
 
 
                                             {{-- Additional Information --}}
-                                             @include('dashboard.components.courses.edit.Additional')
+                                            @include('dashboard.components.courses.edit.Additional')
                                             {{-- end Additional Information --}}
 
 
@@ -95,7 +96,7 @@
     <!-- END: Content-->
 
     @push('js')
-    <script src="{{ asset('dashboard/assets/js/custom/course.js') }}"></script>
+        <script src="{{ asset('dashboard/assets/js/custom/course.js') }}"></script>
 
 
 
@@ -127,14 +128,16 @@
         </script>
 
         @php
-            function createFileObject($path)
-            {
-                return [
-                    'source' => $path,
-                    'options' => [
-                        'type' => 'local',
-                    ],
-                ];
+            if (!function_exists('createFileObject')) {
+                function createFileObject($path)
+                {
+                    return [
+                        'source' => $path,
+                        'options' => [
+                            'type' => 'local',
+                        ],
+                    ];
+                }
             }
         @endphp
 
@@ -238,7 +241,7 @@
                     files: [
                         @json(createFileObject($course->intro_video_path)),
                     ],
-                    @endif
+                @endif
 
                 // For the video FilePond instance
 

@@ -158,12 +158,24 @@
                                                     <label for="skills">{{ transWord('المهارات الخاصه بك') }}</label>
                                                     <select class="form-control select-multiple" id="skills"
                                                         name="skills[]" multiple="multiple">
-                                                        @if (old('skills', $student->skills))
-                                                            @foreach (old('skills', $student->skills) as $item)
+                                                        @php
+                                                            $skills = collect(
+                                                                old(
+                                                                    'skills',
+                                                                    is_string($student->skills)
+                                                                        ? explode(',', $student->skills)
+                                                                        : $student->skills,
+                                                                ),
+                                                            );
+
+                                                        @endphp
+                                                        @if ($skills)
+                                                            @foreach ($skills as $item)
                                                                 <option selected value="{{ $item }}">
                                                                     {{ $item }}</option>
                                                             @endforeach
                                                         @endif
+                                    
                                                     </select>
                                                     @error('skills')
                                                         <span class="alert alert-danger">
@@ -392,14 +404,16 @@
         </script> --}}
 
         @php
-            function createFileObject($path)
-            {
-                return [
-                    'source' => $path,
-                    'options' => [
-                        'type' => 'local',
-                    ],
-                ];
+            if (!function_exists('createFileObject')) {
+                function createFileObject($path)
+                {
+                    return [
+                        'source' => $path,
+                        'options' => [
+                            'type' => 'local',
+                        ],
+                    ];
+                }
             }
         @endphp
         <script>
@@ -421,11 +435,11 @@
                         minFileSize: '0.5MB',
                         maxFileSize: '30MB',
                         labelMaxFileSizeExceeded: "{{ transWord('الحد الاقصى لحجم الملف هو') }}",
-                    labelFileProcessing: "{{ transWord('جاري التحميل') }}",
-                    labelFileProcessingComplete: "{{ transWord('تم التحميل') }}",
-                    labelTapToCancel: "{{ transWord('انقر للغاء') }}",
+                        labelFileProcessing: "{{ transWord('جاري التحميل') }}",
+                        labelFileProcessingComplete: "{{ transWord('تم التحميل') }}",
+                        labelTapToCancel: "{{ transWord('انقر للغاء') }}",
                         required: true,
-                        labelIdle : "{{ transWord('قم بسحب الصوره او') }} <span class='filepond--label-action' tabindex='0'> انقر هنا </span>",
+                        labelIdle: "{{ transWord('قم بسحب الصوره او') }} <span class='filepond--label-action' tabindex='0'> انقر هنا </span>",
 
 
 
@@ -434,11 +448,11 @@
                 );
                 FilePond.setOptions({
                     server: {
-                        load: (source , load , error , progress , abort , headers) => {
+                        load: (source, load, error, progress, abort, headers) => {
                             fetch(source).then(res => res.blob()).then(load).catch(error)
                         },
                         process: "{{ route('admin.tmp.uploads', ['folder' => 'students']) }}",
-                        revert: "{{ route('admin.tmp.delete',['folder' => 'students']) }}",
+                        revert: "{{ route('admin.tmp.delete', ['folder' => 'students']) }}",
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 

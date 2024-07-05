@@ -31,9 +31,9 @@ return new class extends Migration
             //Content Drip Type
             $table->enum('content_drip_type', ['Scheduled', 'Post_Enrollment', 'Sequential','Prerequisite_Unlocked'])->nullable();
             $table->enum('type_course', ['free', 'paid'])->default('free')->nullable();
-            $table->decimal('price', 10, 2)->default(0.00);
-            $table->decimal('discount', 10, 2)->default(0.00);
-            $table->decimal('price_after_discount', 10, 2)->default(0.00);
+            $table->string('price', )->default(0);
+            $table->string('discount', )->default(0)->nullable();
+            $table->string('price_after_discount', )->default(0)->nullable();
 
           //  $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
 
