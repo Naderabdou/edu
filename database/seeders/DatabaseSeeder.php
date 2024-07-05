@@ -8,6 +8,7 @@ use App\Models\Onboard;
 use Database\Seeders\ColorSeed;
 use Illuminate\Database\Seeder;
 use Database\Seeders\SettingTableSeeder;
+use Database\Seeders\StudentTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingTableSeeder::class);
         $this->call(ConnectivityToolSeeder::class);
         $this->call(UserTableSeeder::class);
+        $this->call(StudentTableSeeder::class);
+        $this->call(CourcesTableSeeder::class);
 
     }
 }

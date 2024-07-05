@@ -195,7 +195,7 @@
 
 
 
-                                                                    <div class="row">
+                                                                    {{-- <div class="row">
                                                                         <div class="col-lg-5">
                                                                             <b>{{ transWord('المهارات') }} : </b>
                                                                         </div>
@@ -212,7 +212,7 @@
 
                                                                         </div>
 
-                                                                    </div>
+                                                                    </div> --}}
 
 
 
